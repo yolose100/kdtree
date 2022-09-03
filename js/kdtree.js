@@ -1,5 +1,14 @@
 k = 2;
 
+class Point {
+    constructor (x, y, userData ){
+    this.x = x;
+    this.y = y;
+    this.userData = userData;
+    }
+}
+
+
 class Node {
 constructor (point , axis ){
 this.point = point;
@@ -14,7 +23,11 @@ this.axis = axis;
     return  Math.max(getHeight(node.left)+1, getHeight(node.right+1));
 
  }
- function generate_dot ( node ) {}
+ function generate_dot ( node ) {
+
+
+
+ }
  function build_kdtree(points, depth = 0){
     var n = points.length;
     var axis = depth % k;
@@ -47,4 +60,6 @@ this.axis = axis;
     
     return node;
     
-    }
+ }
+
+ 

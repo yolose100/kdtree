@@ -1,8 +1,8 @@
 function setup () {
-    var width = 250;
-    var height = 200;
+    var width = 1000;
+    var height = 1000;
     createCanvas (width , height ) ;
-    
+    console.log("cambas");
     background (0) ;
     for (var x = 0; x < width; x += width / 10) {
     
@@ -27,7 +27,20 @@ function setup () {
     
     
     
-    }
+}
     
     var root = build_kdtree ( data ) ;
-    console.log ( root );}
+    console.log ( root );
+
+}
+
+    let puntos =  [
+        new Point(100,300),
+        new Point(300,300),
+        new Point(400,300),
+        new Point(500,300),
+        new Point(600,300),
+
+ ]
+ 
+ var root = new Node();

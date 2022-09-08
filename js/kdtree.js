@@ -114,7 +114,7 @@ function build_kdtree(points, depth = 0) {
 function distanceSquared ( point1 , point2 ){
     var distance = 0;
     for (var i = 0; i < k; i ++)
-        distance += Math.pow (( point1 [i] - point2 [i]) , 2) ;
+        distance += Math.pow (( point1[i] - point2[i]) , 2) ;
     return Math.sqrt ( distance );
 }
 
@@ -158,4 +158,43 @@ function naive_closest_point (node , point , depth = 0, best = null ) {
     }
 
     return best;
+}
+
+function closest_point (node , point , depth = 0, best = null ) {
+    if ( node == null || point == null )
+        return null;
+        
+    let axis   = depth % k;
+    nodeValue  = node.point[ axis ];
+    pointValue = point[ axis ];
+
+    if ( best ) {
+        let d1 = distanceSquared ( best , point );
+        let d2 = distanceSquared ( node.point , point );
+
+        best = ( d1 < d2 ) ? best : node.point;
+    } else {
+        best = node.point;
+    }
+
+    if ( pointValue < nodeValue) {
+        let dif1 = distanceSquared( node.point , point );
+        let dif2 = nodeValue - pointValue;
+        if (dif1 > dif2 && node.right)
+            best = closest_point( node.right , point , depth + 1 , best );
+
+        if ( node.left )
+            return closest_point( node.left , point , ++depth , best );
+
+    } else {
+        let dif1 = distanceSquared( node.point , point );
+        let dif2 = pointValue - nodeValue;
+        if (dif1 > dif2 && node.left)
+            best = closest_point( node.left , point , depth + 1 , best );
+
+        if ( node.right )
+            return closest_point( node.right , point , ++depth , best );
+    }
+
+   return best;
 }

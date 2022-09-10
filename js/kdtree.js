@@ -198,3 +198,38 @@ function closest_point (node , point , depth = 0, best = null ) {
 
    return best;
 }
+
+function range_query_circle (node , center , radio , queue , depth = 0) {
+    if ( node == null || point == null )
+    return null;
+    if (!queue){
+        queue = [];
+    }
+
+    let axis   = depth % k;
+    nodeValue  = node.point[ axis ];
+    pointValue = center[ axis ];
+    
+    console.log(node.point,distanceSquared ( node.point, center ));
+
+    if(distanceSquared ( node.point , center )<radio){
+        queue.push(node);
+    }
+
+
+    if ( (pointValue-radio) < nodeValue) {
+   
+        if ( node.left )
+             range_query_circle (node.left , center , radio , queue , ++depth ) 
+    } 
+
+    
+
+    if ( (pointValue+radio) > nodeValue) {
+      
+        if ( node.right)
+             range_query_circle (node.right , center , radio , queue , ++depth ) 
+    } 
+
+    
+}

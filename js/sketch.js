@@ -15,7 +15,7 @@ function setup () {
     }
     
     var data = [];
-    for ( let i = 0; i < 12; i ++) {
+    for ( let i = 0; i < 100; i ++) {
     var x = Math.floor ( Math.random () * height );
     var y = Math.floor ( Math.random () * height );
     data.push ([x, y]) ;
@@ -31,7 +31,14 @@ function setup () {
     
     var root = build_kdtree ( data ) ;
     console.log ( root );
+    var queue = [] ;
+    noFill()
+    circle(100, height- 100, 100*2);
 
+    range_query_circle(root,[100,100],100,queue,0);
+    console.log("esta es la cola")
+    console.log(queue);
+    
 }
 
     let puntos =  [
@@ -43,4 +50,6 @@ function setup () {
 
  ]
  
- var root = new Node();
+ 
+
+ 

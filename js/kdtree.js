@@ -233,3 +233,42 @@ function range_query_circle (node , center , radio , queue , depth = 0) {
 
     
 }
+
+function range_query_rectangle (node , box , queue , depth = 0) {
+    if ( node == null || point == null )
+    return null;
+    if (!queue){
+        queue = [];
+    }
+
+    let axis   = depth % k;
+    nodeValue  = node.point[ axis ];
+    
+    //console.log(node.point,distanceSquared ( node.point, center ));
+    let isInside = true;
+    for ( let i = 0 ; i < box.length ; i++ ) {
+        if(box[i][0] > node.point[i] || box[i][1] < node.point[i] )
+        isInside = false;
+    }
+    if (isInside){
+
+        queue.push(node);
+    }
+
+    if ( box[axis][0] < nodeValue) {
+   
+        if ( node.left )
+        range_query_rectangle (node.left ,box , queue , ++depth ) 
+    } 
+
+    
+
+    if (  box[axis][1] > nodeValue) {
+      
+        if ( node.right)
+        range_query_rectangle (node.right ,box, queue , ++depth ) 
+    } 
+
+    
+}
+

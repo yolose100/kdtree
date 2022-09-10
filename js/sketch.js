@@ -1,3 +1,4 @@
+
 function setup () {
     var width = 1000;
     var height = 1000;
@@ -33,11 +34,31 @@ function setup () {
     console.log ( root );
     var queue = [] ;
     noFill()
+    let c = color(255, 204, 0)
+    stroke(c);
+ 
     circle(100, height- 100, 100*2);
-
+    fill(c);  
     range_query_circle(root,[100,100],100,queue,0);
+    
+
+
     console.log("esta es la cola")
-    console.log(queue);
+    queue.forEach(e =>  { 
+        console.log(e.point)
+        circle (e.point[0], height - e.point[1], 7);} )
+    queue = [];
+   
+    noFill()
+
+    rect(500,height-100, 100, 100);
+    range_query_rectangle(root,[[500,600],[0,100]],queue,0);
+    fill(c);  
+    queue.forEach(e =>  { 
+        console.log(e.point)
+        circle (e.point[0], height - e.point[1], 7);} )
+    
+
     
 }
 

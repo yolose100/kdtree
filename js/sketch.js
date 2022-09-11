@@ -11,6 +11,7 @@ let rectaguloBox =[100,100];
 let isMovingRectangle= true;
 let isMovingCircle= false;
 let queue= [];
+let actualqueue = [];
 function setup() {
  
     let mycanvas = createCanvas(width, height);
@@ -90,14 +91,17 @@ function dibujo(){
     noFill()
     let c = color(255, 204, 0)
     stroke(c);
-
+    queue = [];
     myCircle = circle(circuloPunto[0], height - circuloPunto[1], circuloRadio * 2);
     fill(c);
     range_query_circle(root,circuloPunto, circuloRadio, queue, 0);
      queue.forEach(e => {
         circle(e.point[0], height - e.point[1], 7);
     });
+    if(isMovingCircle){
+        actualqueue=queue;
 
+    }
     queue = [];
 
 
@@ -112,6 +116,9 @@ function dibujo(){
     rect(rectanguloPunto[0], height - rectanguloPunto[1], rectaguloBox[0], rectaguloBox[1]);
     range_query_rectangle(root, [[px,px2 ], [py2, py]], queue, 0);
     fill(c);
+    if (isMovingRectangle){
+        actualqueue = queue;
+    }
     queue.forEach(e => {
     
         circle(e.point[0], height - e.point[1], 7);
@@ -191,7 +198,7 @@ function cuadrado(){
 }
 function contar(){
     console.log(queue);
-    alert(queue);
+    alert(actualqueue.length);
 }
 
 

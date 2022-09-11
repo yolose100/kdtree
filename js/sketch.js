@@ -12,6 +12,8 @@ let isMovingRectangle= true;
 let isMovingCircle= false;
 let queue= [];
 let actualqueue = [];
+
+let query_point=[];
 function setup() {
  
     let mycanvas = createCanvas(width, height);
@@ -125,7 +127,17 @@ function dibujo(){
     })
     stroke(255,255,255);
 
+    if(query_point){
+        fill(0, 255,0 );
+        circle(query_point[0], height - query_point[1], 7); // 200 -y para q se dibuje apropiadamente
+        textSize(8);
+        text(query_point[0] + ',' + query_point[1], query_point[0] + 5, height - query_point[1]);// 200 -y para q se dibuje
 
+        
+        points_knn.forEach(element => {
+            circle(element.point[0], height - element.point[1], 7); // 200 -y para q se dibuje apropiadamente    
+        });        
+    }
 
 }
 function draw() {
@@ -202,4 +214,18 @@ function contar(){
 }
 
 
+function knn_query(){
+    query_x = document.getElementById("queryx").value;
+    query_y = document.getElementById("queryy").value;
+    query_point = [parseInt(query_x),parseInt(query_y)];
+    points_knn=[];
+    k_closest_point(root,query_point,0,best);        
+    console.log("knn", points_knn);
+    let txt = "";
 
+    
+    points_knn.forEach(element => {
+        txt += (element.point+ "=>"+element.d+"\n");
+    });
+    document.getElementById("knn_result").value = txt;
+}

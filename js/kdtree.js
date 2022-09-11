@@ -1,5 +1,7 @@
 k = 2;
-
+MAX_VECINOS = 3;
+points_knn =[];
+distances_knn =[];
 class Point {
     constructor (x, y, userData ){
     this.x = x;
@@ -197,6 +199,60 @@ function closest_point (node , point , depth = 0, best = null ) {
 
    return best;
 }
+
+function k_closest_point (node , point , depth = 0, best = null ) {
+    if ( node == null || point == null )
+        return null;
+        
+    let axis   = depth % k;
+    nodeValue  = node.point[ axis ];
+    pointValue = point[ axis ];
+    let obj;
+    if ( best ) {
+        let d1 = distanceSquared ( best , point );
+        let d2 = distanceSquared ( node.point , point );
+
+        best = ( d1 < d2 ) ? best : node.point;
+        
+        obj = {point:node.point,d:d2};
+        points_knn.push(obj);
+        
+        points_knn.sort(function(a, b){
+            return a.d - b.d;
+        });
+        if (points_knn.length>MAX_VECINOS){
+            points_knn=points_knn.slice(0,MAX_VECINOS+1);
+        }
+
+    } else {
+        best = node.point;
+        let d2 = distanceSquared ( node.point , point );
+        obj = {point:node.point,d:d2};
+        points_knn.push(obj);
+    }
+
+    if ( pointValue < nodeValue) {
+        let dif1 = distanceSquared( node.point , point );
+        let dif2 = nodeValue - pointValue;
+        if (dif1 > dif2 && node.right)
+            best = k_closest_point( node.right , point , depth + 1 , best );
+
+        if ( node.left )
+            return k_closest_point( node.left , point , ++depth , best );
+
+    } else {
+        let dif1 = distanceSquared( node.point , point );
+        let dif2 = pointValue - nodeValue;
+        if (dif1 > dif2 && node.left)
+            best = k_closest_point( node.left , point , depth + 1 , best );
+
+        if ( node.right )
+            return k_closest_point( node.right , point , ++depth , best );
+    }
+
+   return best;
+}
+
 
 function range_query_circle (node , center , radio , queue , depth = 0) {
     if ( node == null || point == null )

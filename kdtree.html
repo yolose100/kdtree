@@ -14,7 +14,7 @@
 
 <body>
     <script>
-        var data = [
+        var data2 = [
             [40, 70],
             [70, 130],
             [90, 40],
@@ -23,13 +23,17 @@
             [150, 30],
             [175, 100]
         ];
-        var point = [140, 90]; // query
+        var point_q = [140, 90]; // query
 
-        let kdtree = build_kdtree(data);
+        let kdtree = build_kdtree(data2);
 
-        console.log("closest_point_brute_force: ", closest_point_brute_force(data, point));
-        console.log("naive_closest_point: ", naive_closest_point(kdtree, point));
-        console.log("closest_point", closest_point(kdtree, point));
+        console.log("closest_point_brute_force: ", closest_point_brute_force(data2, point_q));
+        console.log("naive_closest_point: ", naive_closest_point(kdtree, point_q));
+        console.log("closest_point", closest_point(kdtree, point_q));
+        best = null;
+        best = k_closest_point(kdtree,point_q,0,best);
+        
+        console.log("knn", points_knn);
     </script>
 
 
@@ -82,6 +86,24 @@
                     <button onclick="derecha()" class="button_top text-center">R</button>
 
                 </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col-4">
+                    <input type="text" name="queryx" id="queryx" placeholder="X_QUERYKNN:">
+                </div>
+                <div class="col-4">
+                    <input type="text" name="queryy" id="queryy" placeholder="Y_QUERYKNN:">
+                </div>
+                <div class="col-4">
+                    <button onclick="knn_query()" class="button_top text-center">KNN?</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <textarea name="knn_result" id="knn_result" cols="40" rows="10" placeholder="KNN POINTS AND DISTANCES">
+
+                    </textarea>
+                </div>                
             </div>
         </div>
 

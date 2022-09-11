@@ -1,31 +1,97 @@
-<html >
+<html>
 
- <head >
- <title >Kd tree </title >
- <script src= "js/p5.min.js "> </script>
- <script src= "js/kdtree.js "> </script>
- <script src= "js/sketch.js "> </script>
+<head>
+    <title>Kd tree </title>
+    <script src="js/p5.min.js "> </script>
+    <script src="js/kdtree.js "> </script>
+    <script src="js/sketch.js "> </script>
+    <link href="js/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
- </head >
- <body >
+
+    <script src="js/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
     <script>
         var data = [
-            [40 ,70] ,
-            [70 ,130] ,
-            [90 ,40] ,
-            [100 , 100] ,
-            [140 ,110] ,
-            [150 , 30] ,
-            [175 , 100]
+            [40, 70],
+            [70, 130],
+            [90, 40],
+            [100, 100],
+            [140, 110],
+            [150, 30],
+            [175, 100]
         ];
-        var point = [140 ,90]; // query
+        var point = [140, 90]; // query
 
         let kdtree = build_kdtree(data);
 
-        console.log("closest_point_brute_force: ",closest_point_brute_force(data,point));
-        console.log("naive_closest_point: ",naive_closest_point(kdtree,point));
-        console.log("closest_point",closest_point(kdtree,point));
+        console.log("closest_point_brute_force: ", closest_point_brute_force(data, point));
+        console.log("naive_closest_point: ", naive_closest_point(kdtree, point));
+        console.log("closest_point", closest_point(kdtree, point));
     </script>
- </body >
 
- </html >
+
+
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-8">
+
+            <div id="division"> </div>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                <div class="col-6">
+
+                    <button onclick="cuadrado()" value ="CUADRADO" id= "cual" class="button_top text-center">CUADRADO</button>
+                
+                </div>
+
+                <div class="col-6">
+
+                    <button onclick="arriba()" class="button_top text-center">U</button>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+
+                    <button onclick="contar()" class="button_top text-center">contar</button>
+
+                </div>
+
+                <div class="col-3">
+
+                    <button onclick="izquierda()" class="button_top text-center">L</button>
+
+                </div>
+
+                <div class="col-3">
+
+                    <button onclick="abajo()" class="button_top text-center">D</button>
+
+                </div>
+
+                <div class="col-3">
+
+                    <button onclick="derecha()" class="button_top text-center">R</button>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+</body>
+
+</html>

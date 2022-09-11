@@ -75,7 +75,6 @@ function build_kdtree(points, depth = 0) {
     return  Math.max(getHeight(node.left)+1, getHeight(node.right+1));
 
  }
- function generate_dot ( node ) {}
  function build_kdtree(points, depth = 0){
     var n = points.length;
     var axis = depth % k;
@@ -209,26 +208,24 @@ function range_query_circle (node , center , radio , queue , depth = 0) {
     let axis   = depth % k;
     nodeValue  = node.point[ axis ];
     pointValue = center[ axis ];
-    
-    console.log(node.point,distanceSquared ( node.point, center ));
-
-    if(distanceSquared ( node.point , center )<radio){
+    //console.log('range circl  dept',depth,node.point)
+     if(distanceSquared ( node.point , center )<radio){
         queue.push(node);
     }
 
-
+    let dat = depth +1 ;
     if ( (pointValue-radio) < nodeValue) {
    
         if ( node.left )
-             range_query_circle (node.left , center , radio , queue , ++depth ) 
+             range_query_circle (node.left , center , radio , queue , dat ) ;
     } 
-
+    dat = depth +1;
     
 
     if ( (pointValue+radio) > nodeValue) {
       
         if ( node.right)
-             range_query_circle (node.right , center , radio , queue , ++depth ) 
+             range_query_circle (node.right , center , radio , queue , dat ); 
     } 
 
     
@@ -246,19 +243,21 @@ function range_query_rectangle (node , box , queue , depth = 0) {
     
     //console.log(node.point,distanceSquared ( node.point, center ));
     let isInside = true;
+    depth = depth +1 ;
+
     for ( let i = 0 ; i < box.length ; i++ ) {
         if(box[i][0] > node.point[i] || box[i][1] < node.point[i] )
         isInside = false;
+        
     }
     if (isInside){
-
-        queue.push(node);
+         queue.push(node);
     }
 
     if ( box[axis][0] < nodeValue) {
    
         if ( node.left )
-        range_query_rectangle (node.left ,box , queue , ++depth ) 
+        range_query_rectangle (node.left ,box , queue , depth ) 
     } 
 
     
@@ -266,7 +265,7 @@ function range_query_rectangle (node , box , queue , depth = 0) {
     if (  box[axis][1] > nodeValue) {
       
         if ( node.right)
-        range_query_rectangle (node.right ,box, queue , ++depth ) 
+        range_query_rectangle (node.right ,box, queue , depth) 
     } 
 
     
